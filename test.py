@@ -19,8 +19,9 @@ print()
 print(tree.pretty())
 
 print()
-c("td ->", td := transformer.transform(tree))
-c("dt ->", now + td)
+c("δ ->", δ := transformer.transform(tree))
+c("dt ->", now + δ)
+print()
 
 
 for expr in [
@@ -69,6 +70,10 @@ for expr in [
 	),
 	None,
 	*(  # compound
+		# "10:!10:", # error
+		"10:",
+		"10:!11-",
+		"10:!15-",
 	),
 ]:
 	if expr is None:
@@ -76,7 +81,7 @@ for expr in [
 		continue
 
 	try:
-		c(f"str2td({expr!r})=", (td := str2td(expr, now=now, parser_tz=tz), now + td)[::-1])
+		c(f"str2td({expr!r})=", (δ := str2td(expr, now=now, parser_tz=tz), now + δ)[::-1])
 	except Exception as e:
 		c(f"str2td({expr!r})=", e)
 		raise

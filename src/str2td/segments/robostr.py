@@ -1,6 +1,6 @@
 # fmt: off
 from collections.abc import Iterable
-from datetime import timedelta
+from datetime import timedelta as Δ
 from functools import reduce
 
 UNITS = {
@@ -67,9 +67,9 @@ del timestr_lookup
 # fmt: on
 
 
-def calculate_pair(n: int, unit: str) -> timedelta:
-	return timedelta(seconds=(n * UNITS[unit]))
+def calculate_pair(n: int, unit: str) -> Δ:
+	return Δ(seconds=(n * UNITS[unit]))
 
 
-def calculate_pairs(pairs: Iterable[tuple[float, str]]) -> timedelta:
+def calculate_pairs(pairs: Iterable[tuple[float, str]]) -> Δ:
 	return reduce(lambda a, b: a + b, (calculate_pair(*pair) for pair in pairs))  # noqa: FURB118, FURB140

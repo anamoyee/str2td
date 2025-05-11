@@ -25,7 +25,7 @@ time_segment: DIGITS ":" ( DIGITS ( ":" ( DIGITS )? )? )?
 weekday_segment: WEEKDAY
 
 //@WEEKDAY
-WEEKDAY: "poniedzialek"|"poniedziałek"|"niedziela"|"wednesday"|"thursday"|"czwartek"|"saturday"|"tuesday"|"piątek"|"friday"|"sobota"|"piatek"|"wtorek"|"sunday"|"monday"|"środa"|"sroda"|"wed"|"mon"|"pią"|"sun"|"nie"|"pon"|"wto"|"fri"|"sro"|"sat"|"czw"|"thu"|"sob"|"tue"|"śro"|"pia"|"ni"|"sr"|"fr"|"wt"|"mo"|"nd"|"cz"|"pn"|"we"|"po"|"pt"|"śr"|"sa"|"tu"|"th"|"so"|"pi"|"su"
+WEEKDAY: "poniedziałek"|"poniedzialek"|"niedziela"|"wednesday"|"czwartek"|"thursday"|"saturday"|"tuesday"|"sunday"|"monday"|"friday"|"piatek"|"wtorek"|"sobota"|"piątek"|"środa"|"sroda"|"fri"|"mon"|"sro"|"tue"|"sob"|"pon"|"czw"|"sun"|"wed"|"pia"|"sat"|"wto"|"thu"|"śro"|"nie"|"pią"|"fr"|"th"|"po"|"so"|"śr"|"sa"|"pi"|"pn"|"tu"|"mo"|"sr"|"nd"|"ni"|"su"|"cz"|"wt"|"pt"|"we"
 
 
 
