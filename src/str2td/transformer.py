@@ -6,8 +6,8 @@ from http.client import TOO_MANY_REQUESTS
 
 import lark
 
+from . import segments
 from .error import TooManySegmentsOfTypeError
-from .segments import robostr, weekday
 
 
 class _SegmentSorter(lark.Transformer):
@@ -59,14 +59,14 @@ class Transformer(lark.Transformer):
 
 		def robostr_segment(self, pairs: tuple[tuple[float, str]]):
 			try:
-				return robostr.calculate_pairs(pairs)
+				return segments.robostr.calculate_pairs(pairs)
 			except KeyError as e:
 				raise ValueError(f"Unknown unit: {e}") from e
 
 	if True:  # weekday_segment
 
 		def _find_next_weekday(self, weekday_: str) -> Δ:
-			return Δ(days=((weekday.WEEKDAYS.index(weekday_) - self.now.weekday()) % 7) or 7)  # or 7 -> when the day is today, assume user meant oh the next week's wednesday or whateverday
+			return Δ(days=((segments.weekday.WEEKDAYS.index(weekday_) - self.now.weekday()) % 7) or 7)  # or 7 -> when the day is today, assume user meant oh the next week's wednesday or whateverday
 
 		def weekday_segment(self, weekday_str):
 			return self._find_next_weekday(str(*weekday_str))
@@ -178,7 +178,17 @@ class Transformer(lark.Transformer):
 			if self.n_date_segments >= 2:
 				raise TooManySegmentsOfTypeError("Too many `date` segments (max: 1/expr)")
 
-			d, m, y, *_ = [int(a) for a in args] + [None, None]
+			if args.__len__() >= 2:
+				if args[1] is not None and not args[1].isnumeric():
+					try:
+						args[1] = (segments.date.MONTH_WORDS.index(args[1]) % 12) + 1
+					except ValueError as e:
+						raise ValueError(f"Unknown month name or number: {args[1]!r}") from e
+
+			try:
+				d, m, y, *_ = [int(a) for a in args] + [None, None]
+			except ValueError as e:
+				raise ValueError(f"Invalid date: {args!r}") from e
 
 			if y is not None and y < 100:
 				y = 2000 + y  # 25 -> 2025

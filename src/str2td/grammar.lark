@@ -2,32 +2,17 @@ start: segment ("!" segment)*
 
 ?segment: robostr_segment | date_segment | time_segment | weekday_segment
 
-
-
-
 robostr_pair: SIGNED_NUMBER WORD
-
 robostr_segment: robostr_pair+
 
-
-
-
-date_segment: DIGITS "-" ( DIGITS ( "-" ( DIGITS )? )? )?
-
-
-
-
+date_segment: DIGITS "-" ( (DIGITS | MONTH_WORDS) ( "-" ( DIGITS )? )? )?
 time_segment: DIGITS ":" ( DIGITS ( ":" ( DIGITS )? )? )?
-
-
-
-
 weekday_segment: WEEKDAY
 
 //@WEEKDAY
-WEEKDAY: "poniedziałek"|"poniedzialek"|"niedziela"|"wednesday"|"czwartek"|"thursday"|"saturday"|"tuesday"|"sunday"|"monday"|"friday"|"piatek"|"wtorek"|"sobota"|"piątek"|"środa"|"sroda"|"fri"|"mon"|"sro"|"tue"|"sob"|"pon"|"czw"|"sun"|"wed"|"pia"|"sat"|"wto"|"thu"|"śro"|"nie"|"pią"|"fr"|"th"|"po"|"so"|"śr"|"sa"|"pi"|"pn"|"tu"|"mo"|"sr"|"nd"|"ni"|"su"|"cz"|"wt"|"pt"|"we"
-
-
+WEEKDAY: "poniedzialek"|"poniedziałek"|"niedziela"|"wednesday"|"thursday"|"saturday"|"czwartek"|"tuesday"|"monday"|"friday"|"wtorek"|"sobota"|"sunday"|"piątek"|"piatek"|"środa"|"sroda"|"sro"|"czw"|"śro"|"sun"|"pią"|"sob"|"fri"|"nie"|"wto"|"mon"|"pia"|"pon"|"thu"|"sat"|"wed"|"tue"|"ni"|"su"|"cz"|"śr"|"tu"|"we"|"wt"|"mo"|"sa"|"pn"|"pt"|"po"|"th"|"nd"|"fr"|"pi"|"sr"|"so"
+//@MONTH_WORDS
+MONTH_WORDS: "październik"|"pazdziernik"|"september"|"czerwiec"|"listopad"|"wrzesien"|"grudzien"|"november"|"grudzień"|"kwiecień"|"sierpień"|"february"|"wrzesień"|"december"|"sierpien"|"kwiecien"|"styczeń"|"january"|"october"|"styczen"|"lipiec"|"marzec"|"august"|"april"|"march"|"june"|"luty"|"july"|"oct"|"dec"|"gru"|"jan"|"paź"|"feb"|"maj"|"cze"|"sie"|"apr"|"nov"|"mar"|"lis"|"aug"|"wrz"|"may"|"paz"|"jun"|"lip"|"sep"|"sty"|"kwi"|"lut"|"jul"
 
 
 DIGITS: DIGIT+

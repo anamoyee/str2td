@@ -1,7 +1,7 @@
 from json import dumps
 from pathlib import Path
 
-from .segments import weekday
+from . import segments
 
 
 def replace_lark_segment(tag: str, replacement: str, filename: str = "./grammar.lark"):
@@ -28,7 +28,19 @@ replace_lark_segment(
 	"|".join(
 		f'"{repr(s)[1:-1]}"'
 		for s in sorted(
-			set(weekday.WEEKDAYS),
+			set(segments.weekday.WEEKDAYS),
+			key=len,
+			reverse=True,
+		)
+	),
+)
+
+replace_lark_segment(
+	"MONTH_WORDS",
+	"|".join(
+		f'"{repr(s)[1:-1]}"'
+		for s in sorted(
+			set(segments.date.MONTH_WORDS),
 			key=len,
 			reverse=True,
 		)

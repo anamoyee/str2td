@@ -57,6 +57,9 @@ for expr in [
 		"1-7-25",
 		"1-7-2025",
 		"1-7-2026",
+		"1-5-2026",
+		"20-5-2025",
+		"20-may-2025",
 	),
 	None,
 	*(  # weekday
@@ -81,7 +84,7 @@ for expr in [
 		continue
 
 	try:
-		c(f"str2td({expr!r})=", (δ := str2td(expr, now=now, parser_tz=tz), now + δ)[::-1])
+		c(f"str2td({expr!r})=", (δ := str2td(expr, now=now, parser_tz=tz), now + δ)[::-1][0])
 	except Exception as e:
 		c(f"str2td({expr!r})=", e)
 		raise
