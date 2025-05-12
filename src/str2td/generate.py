@@ -1,10 +1,11 @@
+from collections.abc import Iterable
 from json import dumps
 from pathlib import Path
 
 from . import segments
 
 
-def replace_lark_segment(tag: str, replacement: str, filename: str = "./grammar.lark"):
+def replace_lark_segment(tag: str, replacement: str, *, filename: str = "./grammar.lark"):
 	path = (Path(__file__).parent / filename).resolve()
 	lines = path.read_text(encoding="utf-8").splitlines(keepends=True)
 
@@ -23,26 +24,32 @@ def replace_lark_segment(tag: str, replacement: str, filename: str = "./grammar.
 	path.write_text("".join(lines), encoding="utf-8")
 
 
-replace_lark_segment(
+from tcrutils.console import c
+
+
+def replace_lark_segment_with_orlist(tag: str, it: Iterable[str], *, filename: str = "./grammar.lark"):
+	return replace_lark_segment(
+		tag,
+		"|".join(
+			f'"{repr(s)[1:-1]}"'
+			for s in (
+				sorted(
+					it,
+					key=lambda x: (len(x), x),
+					reverse=True,
+				)
+			)
+		),
+		filename=filename,
+	)
+
+
+replace_lark_segment_with_orlist(
 	"WEEKDAY",
-	"|".join(
-		f'"{repr(s)[1:-1]}"'
-		for s in sorted(
-			set(segments.weekday.WEEKDAYS),
-			key=len,
-			reverse=True,
-		)
-	),
+	set(segments.weekday.WEEKDAYS),
 )
 
-replace_lark_segment(
+replace_lark_segment_with_orlist(
 	"MONTH_WORDS",
-	"|".join(
-		f'"{repr(s)[1:-1]}"'
-		for s in sorted(
-			set(segments.date.MONTH_WORDS),
-			key=len,
-			reverse=True,
-		)
-	),
+	set(segments.date.MONTH_WORDS),
 )
