@@ -66,13 +66,13 @@ def __setup():
 del timestr_lookup
 
 if any(not key.islower() for key in UNITS):
-	raise RuntimeError("Invalid robostr units configuration: all UNITS must be lowercase, since they're lowered to case-insensitively compare when evaluating.")
+	raise RuntimeError("all UNITS must be lowercase, since they're lowered to case-insensitively compare when evaluating.")
 
 # fmt: on
 
 
 def calculate_pair(n: int, unit: str) -> Δ:
-	return Δ(seconds=(n * UNITS[unit.lower()]))
+	return Δ(seconds=(n * UNITS[unit]))
 
 
 def calculate_pairs(pairs: Iterable[tuple[float, str]]) -> Δ:

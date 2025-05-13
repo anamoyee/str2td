@@ -6,6 +6,6 @@ from .transformer import Transformer
 
 
 def str2td(s: str, *, now: datetime, parser_tz: tzinfo = datetime.now().astimezone().tzinfo) -> Δ:
-	tree = parser.parse(s)
+	tree = parser.parse(s.lower())
 
 	return Transformer(now=now, parser_tz=parser_tz).transform(tree)

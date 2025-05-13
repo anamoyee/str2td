@@ -1,3 +1,4 @@
+from collections.abc import Callable
 from datetime import date as Date
 from datetime import datetime as Dt
 from datetime import time as Time
@@ -31,7 +32,7 @@ f = partial(str2td, parser_tz=tz)
 		(10,),
 	),
 )
-def test_robostr_one_unit(*, m: int, case_fn: bool):
+def test_robostr_one_unit(*, m: int, case_fn: Callable[[str], str]):
 	f2 = partial(f, now=Dt.now(tz=tz))
 
 	f2 = lambda s, f2=f2: f2(case_fn(s))
@@ -101,6 +102,15 @@ def test_robostr_many_units():
 
 
 @pytest.mark.parametrize(
+	("case_fn",),
+	(
+		(str.lower,),
+		(str.upper,),
+		(str.title,),
+		(lambda s: s,),
+	),
+)
+@pytest.mark.parametrize(
 	("dt", "expected_offset"),
 	(
 		(Dt(2025, 5, 12, 10, 0, 0, tzinfo=tz), 0),
@@ -110,8 +120,10 @@ def test_robostr_many_units():
 		(Dt(2024, 1, 10, 10, 0, 0, tzinfo=tz), 5),
 	),
 )
-def test_weekday(dt: Dt, expected_offset: int):
+def test_weekday(*, dt: Dt, expected_offset: int, case_fn: Callable[[str], str]):
 	f2 = partial(f, now=dt)
+
+	f2 = lambda s, f2=f2: f2(case_fn(s))
 
 	assert f2("mon") == f2("monday") == Δ(days=(expected_offset) % 7 or 7)
 	assert f2("tue") == f2("tuesday") == Δ(days=(expected_offset + 1) % 7 or 7)

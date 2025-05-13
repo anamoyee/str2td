@@ -1,3 +1,4 @@
+from calendar import weekday
 from collections.abc import Iterable
 from datetime import date, datetime, time, tzinfo
 from datetime import timedelta as Δ
@@ -68,8 +69,10 @@ class Transformer(lark.Transformer):
 		def _find_next_weekday(self, weekday_: str) -> Δ:
 			return Δ(days=((segments.weekday.WEEKDAYS.index(weekday_) - self.now.weekday()) % 7) or 7)  # or 7 -> when the day is today, assume user meant oh the next week's wednesday or whateverday
 
-		def weekday_segment(self, weekday_str):
-			return self._find_next_weekday(str(*weekday_str))
+		def weekday_segment(self, weekday_str_it: Iterable[str]):
+			(weekday_str,) = weekday_str_it
+
+			return self._find_next_weekday(str(weekday_str))
 
 	if True:  # time_segment
 		n_time_segments: int

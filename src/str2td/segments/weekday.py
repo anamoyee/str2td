@@ -12,3 +12,6 @@ WEEKDAYS = [
 	"poniedziałek", "wtorek",  "środa",     "czwartek", "piątek", "sobota",   "niedziela",
 ]
 # fmt: on
+
+if any(not s.lower() for s in WEEKDAYS):
+	raise RuntimeError("all WEEKDAYS must be lowercase, since they're lowered to case-insensitively compare when evaluating.")

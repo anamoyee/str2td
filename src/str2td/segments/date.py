@@ -11,6 +11,9 @@ MONTH_WORDS: list[str] = [
 ]
 # fmt: on
 
+if any(not s.lower() for s in MONTH_WORDS):
+	raise RuntimeError("all MONTH_WORDS must be lowercase, since they're lowered to case-insensitively compare when evaluating.")
+
 
 # === Append 3-letter abbreviations with uniqueness rule ===
 @lambda f: f()
