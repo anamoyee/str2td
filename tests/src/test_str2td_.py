@@ -13,6 +13,15 @@ f = partial(str2td, parser_tz=tz)
 
 
 @pytest.mark.parametrize(
+	("case_fn",),
+	(
+		(str.upper,),
+		(str.lower,),
+		(str.title,),
+		(lambda s: s,),
+	),
+)
+@pytest.mark.parametrize(
 	("m",),
 	(
 		(1,),
@@ -22,8 +31,10 @@ f = partial(str2td, parser_tz=tz)
 		(10,),
 	),
 )
-def test_robostr_one_unit(m: int):
+def test_robostr_one_unit(*, m: int, case_fn: bool):
 	f2 = partial(f, now=Dt.now(tz=tz))
+
+	f2 = lambda s, f2=f2: f2(case_fn(s))
 
 	if now_1s := Δ(seconds=1) * m:
 		assert f2(f"{m}s") == now_1s
@@ -109,4 +120,3 @@ def test_weekday(dt: Dt, expected_offset: int):
 	assert f2("fri") == f2("friday") == Δ(days=(expected_offset + 4) % 7 or 7)
 	assert f2("sat") == f2("saturday") == Δ(days=(expected_offset + 5) % 7 or 7)
 	assert f2("sun") == f2("sunday") == Δ(days=(expected_offset + 6) % 7 or 7)
-
