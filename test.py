@@ -84,7 +84,7 @@ for expr in [
 		continue
 
 	try:
-		c(f"str2td({expr!r})=", (δ := str2td(expr, now=now, parser_tz=tz), now + δ)[::-1][0])
+		c(f"str2td({expr!r})=", (δ := str2td(expr, now=now, tz=tz), now + δ)[::-1][0])
 	except Exception as e:
 		c(f"str2td({expr!r})=", e)
 		raise
