@@ -13,7 +13,7 @@ dependencies = [
 
 [project.urls]
 "Documentation" = "https://xkcd.com/730/" # :trollface:
-"Source (GitHub)" = "https://github.com/anamoyee/tcrutils"
+"Source (GitHub)" = "https://github.com/anamoyee/str2td"
 
 [tool.uv]
 dev-dependencies = [
