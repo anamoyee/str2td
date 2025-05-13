@@ -1,6 +1,6 @@
 version = 1
 revision = 2
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 
 [[package]]
 name = "colorama"
@@ -9,15 +9,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/d8/53/6f443c9a4a8358a93a6792e2acffb9d9d5cb0a5cfd8802644b7b1c9a02e4/colorama-0.4.6.tar.gz", hash = "sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44", size = 27697, upload-time = "2022-10-25T02:36:22.414Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/d1/d6/3965ed04c63042e047cb6a3e6ed1a63a35087b6a609aa3a15ed8ac56c221/colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6", size = 25335, upload-time = "2022-10-25T02:36:20.889Z" },
-]
-
-[[package]]
-name = "colored"
-version = "2.3.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/b0/01/04aa2e928233863ddf91b35d8f9c0ae40714394afac01fa76ba4eb2f0182/colored-2.3.0.tar.gz", hash = "sha256:4daf9b3ed687a01d59005e1bd03f354475226b933abb9a01836d6dde926d4c6f", size = 14708, upload-time = "2025-02-10T16:42:42.293Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/71/52/990d8b2a888be9fe1022eb89884849547e6341a8bec0072605fd70483db8/colored-2.3.0-py3-none-any.whl", hash = "sha256:2f7f455dc2ed490531b0b8e0ecf8f8513bb28a150d9f12f0e48b023641a55185", size = 18333, upload-time = "2025-02-10T16:42:39.269Z" },
 ]
 
 [[package]]
@@ -72,15 +63,6 @@ wheels = [
 ]
 
 [[package]]
-name = "pytz"
-version = "2025.2"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/f8/bf/abbd3cdfb8fbc7fb3d4d38d320f2441b1e7cbe29be4f23797b4a2b5d8aac/pytz-2025.2.tar.gz", hash = "sha256:360b9e3dbb49a209c21ad61809c7fb453643e048b38924c765813546746e81c3", size = 320884, upload-time = "2025-03-25T02:25:00.538Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/81/c4/34e93fe5f5429d7570ec1fa436f1986fb1f00c3e0f43a589fe2bbcd22c3f/pytz-2025.2-py2.py3-none-any.whl", hash = "sha256:5ddf76296dd8c44c26eb8f4b6f35488f3ccbf6fbbd7adee0b7262d43f0ec2f00", size = 509225, upload-time = "2025-03-25T02:24:58.468Z" },
-]
-
-[[package]]
 name = "str2td"
 source = { editable = "." }
 dependencies = [
@@ -90,27 +72,10 @@ dependencies = [
 [package.dev-dependencies]
 dev = [
     { name = "pytest" },
-    { name = "tcrutils" },
 ]
 
 [package.metadata]
 requires-dist = [{ name = "lark", specifier = ">=1.2.2" }]
 
 [package.metadata.requires-dev]
-dev = [
-    { name = "pytest", specifier = ">=8.3.5" },
-    { name = "tcrutils", specifier = ">=13.1.31" },
-]
-
-[[package]]
-name = "tcrutils"
-version = "13.1.31"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "colored" },
-    { name = "pytz" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/7f/63/24b61dc617bd64a6eeb21bc197415d7771eed5456a5763a8ba96095b79af/tcrutils-13.1.31.tar.gz", hash = "sha256:093641f411855b9408262a6ca064008238dbd3ba251ca4d609226da243d6cafb", size = 134691, upload-time = "2025-05-05T20:17:36.503Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/e5/20/263bb0bb3c0faf300489af2ac224f9bcef45bce39a60621b174d3e8a02a7/tcrutils-13.1.31-py3-none-any.whl", hash = "sha256:3f93bf465d50bd6bc10acc568be29069463b12b9aa216048c53cd85c640bfc3f", size = 109527, upload-time = "2025-05-05T20:17:34.284Z" },
-]
+dev = [{ name = "pytest", specifier = ">=8.3.5" }]
