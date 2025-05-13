@@ -10,7 +10,7 @@ from str2td import str2td
 
 tz = Dt.now().astimezone().tzinfo
 
-f = partial(str2td, parser_tz=tz)
+f = partial(str2td, tz=tz)
 
 
 @pytest.mark.parametrize(
