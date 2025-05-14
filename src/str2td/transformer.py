@@ -46,6 +46,7 @@ class Transformer(lark.Transformer):
 	def transform(self, tree: lark.Tree):
 		self.n_date_segments = 0
 		self.n_time_segments = 0
+		self.n_weekday_segments = 0
 
 		tree = self.sorter.transform(tree)
 		return super().transform(tree)
@@ -65,11 +66,14 @@ class Transformer(lark.Transformer):
 				raise ValueError(f"Unknown unit: {e}") from e
 
 	if True:  # weekday_segment
+		n_weekday_segments: int
 
 		def _find_next_weekday(self, weekday_: str) -> Δ:
 			return Δ(days=((segments.weekday.WEEKDAYS.index(weekday_) - self.now.weekday()) % 7) or 7)  # or 7 -> when the day is today, assume user meant oh the next week's wednesday or whateverday
 
 		def weekday_segment(self, weekday_str_it: Iterable[str]):
+			self.n_weekday_segments += 1
+
 			(weekday_str,) = weekday_str_it
 
 			return self._find_next_weekday(str(weekday_str))
@@ -87,7 +91,7 @@ class Transformer(lark.Transformer):
 				microsecond=target_time.microsecond,
 			)
 
-			if candidate <= dt_in_target_tz and not self.n_date_segments:  # ensure no date is specified if adjusting time
+			if candidate <= dt_in_target_tz and (self.n_date_segments + self.n_weekday_segments) == 0:  # ensure no date is specified if adjusting time
 				candidate += Δ(days=1)
 
 			candidate_in_dt_tz = candidate.astimezone(self.now.tzinfo)

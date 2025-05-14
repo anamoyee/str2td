@@ -146,6 +146,18 @@ def test_time():
 	assert now + f2("9:") == Dt(2025, 5, 13, 9, 0, 0, tzinfo=tz)
 
 
+def test_time_with_day():
+	now = Dt(2025, 5, 14, 21, 0, 0, tzinfo=tz)  # wed
+	f2 = partial(f, now=now)
+
+	assert now + f2("10:") == Dt(2025, 5, 15, 10, 0, 0, tzinfo=tz)
+	assert now + f2("22:") == Dt(2025, 5, 14, 22, 0, 0, tzinfo=tz)
+	assert now + f2("17-!22:") == Dt(2025, 5, 17, 22, 0, 0, tzinfo=tz)
+	assert now + f2("sob!22:") == Dt(2025, 5, 17, 22, 0, 0, tzinfo=tz)
+	assert now + f2("17-!10:") == Dt(2025, 5, 17, 10, 0, 0, tzinfo=tz)
+	assert now + f2("sob!10:") == Dt(2025, 5, 17, 10, 0, 0, tzinfo=tz)
+
+
 @pytest.mark.parametrize(
 	("now", "s", "dt"),
 	(
