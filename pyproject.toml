@@ -1,7 +1,7 @@
 [project]
 name = "str2td"
 dynamic = ["version"]
-description = "Add your description here"
+description = "Easily convert from short, human readable, and easy to input strings to timedeltas and datetimes"
 readme = "README.md"
 authors = [
     { name = "anamoyee" }
