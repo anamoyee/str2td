@@ -1,3 +1,4 @@
+import sys
 from collections.abc import Callable
 from datetime import date as Date
 from datetime import datetime as Dt
@@ -194,4 +195,29 @@ def test_date(*, now: Dt, s: str, dt: Dt):
 )
 def test_invalid_syntax(*, s: str, now: Dt = Dt(2025, 5, 12, 10, 0, 0, tzinfo=tz)):
 	with pytest.raises(LarkError):
-		f(s, now=now)
+		f(s, now=now, tz=now.tzinfo)
+
+
+@pytest.mark.skipif("-vvv" not in sys.argv, reason="-vvv")
+@pytest.mark.parametrize(
+	("s",),
+	(
+		("1h",),
+		("1h30m15s",),
+		("1h!30m!15s",),
+		("1h!30m!-.25m",),
+		("30-",),
+		("30-5",),
+		("30-5-2004",),
+		("30-5-04",),
+		("30-5-4",),
+		("wed",),
+		("mon",),
+	),
+)
+def test_benchmark(*, s: str, benchmark):
+	now = Dt(2025, 5, 12, 10, 0, 0, tzinfo=tz)
+
+	@benchmark
+	def _():
+		f(s, now=now, tz=now.tzinfo)

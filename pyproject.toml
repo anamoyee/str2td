@@ -19,6 +19,7 @@ dependencies = [
 dev-dependencies = [
 	"rich>=14.0.0",
 	"pytest>=8.3.5",
+	"pytest-benchmark>=5.1.0",
 ]
 
 [build-system]
